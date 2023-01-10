@@ -11,6 +11,8 @@ const Home = () => {
   const [retry, setRetry] = useState(0);
   const [retryCount, setRetryCount] = useState(maxRetries);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [finalPrompt, setFinalPrompt] = useState('');
+
 
   const onChange = (event) => {
     setInput(event.target.value);
@@ -56,6 +58,9 @@ const Home = () => {
       return;
     }
 
+    setFinalPrompt(input);
+    // Remove content from input box
+    setInput('');
     setImg(data.image);
     setIsGenerating(false);
   }
@@ -90,7 +95,7 @@ const Home = () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Generate photos with a black male subject</h1>
+            <h1>Generate photos with a my face as the subject</h1>
           </div>
           <div className="header-subtitle">
             <h2>If you want something new, you have to stop doing something old. - Peter Drucker </h2>
@@ -107,11 +112,20 @@ const Home = () => {
             : 'generate-button'
 }                  onClick={generateAction}>
               <div className="generate">
-                <p>Generate</p>
+                {isGenerating ? (
+                  <span className="loader"></span>
+                ) : (
+                  <p>Generate</p>
+                )}
               </div>
             </a>
           </div>
         </div>
+        {img && (
+          <div className="output-content">
+            <Image src={img} width={512} height={512} alt={input} />
+          </div>
+        )}
       </div>
       <div className="badge-container grow">
         <a
