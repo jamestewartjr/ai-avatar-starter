@@ -48,6 +48,7 @@ const Home = () => {
     // If model still loading, drop that retry time
     if (response.status === 503) {
       console.log('Model is loading still :(.')
+      setRetry(data.estimated_time);
       return;
     }
 
