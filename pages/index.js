@@ -2,7 +2,7 @@ import { useEffect,useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { ethers } from "ethers";
-import minter from '../utils/minter.json'
+import minter from '@utils/minter.json'
 
 const CONTRACT_ADDRESS = "0xF7170CD3750818b8EcE45670152E76D1eD147092";
 
