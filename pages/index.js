@@ -240,7 +240,7 @@ const Home = () => {
             <h2>If you want something new, you have to stop doing something old. - Peter Drucker </h2>
           </div>
           <div className="header-subtitle">
-            <h3>{`Use the phrase "JDS" to generate images with a black male profile photo `}</h3>
+            <h3>{`Use the phrase "jds man" with your description to generate images with a black male profile photo `}</h3>
           </div>
            <div className="prompt-container">
             <input className="prompt-box" value={input} onChange={onChange}/>
