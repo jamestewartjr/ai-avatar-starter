@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react';
+import { useEffect,useState, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { ethers } from "ethers";
@@ -22,7 +22,7 @@ const Home = () => {
     setInput(event.target.value);
   };
 
-  const generateAction = async () => {
+  const generateAction = useCallback(async () => {
     console.log('Generating...');	
 
     if (isGenerating && retry === 0) return;
@@ -68,7 +68,7 @@ const Home = () => {
     setInput('');
     setImg(data.image);
     setIsGenerating(false);
-  }
+  },[input, isGenerating, retry])
 
   const checkIfWalletIsConnected = async () => {
     /*
@@ -122,7 +122,7 @@ const Home = () => {
     }
 
     runRetry();
-  }, [retry]);
+  }, [retry, generateAction, retryCount]);
 
   /*
   * Implement your connectWallet method here
@@ -156,7 +156,7 @@ const Home = () => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, [])
+  })
 
   // Setup our listener.
   const setupEventListener = async () => {
@@ -240,7 +240,7 @@ const Home = () => {
             <h2>If you want something new, you have to stop doing something old. - Peter Drucker </h2>
           </div>
           <div className="header-subtitle">
-            <h3>Use the phrase "JDS" to generate images with a black male profile photo </h3>
+            <h3>{`Use the phrase "JDS" to generate images with a black male profile photo `}</h3>
           </div>
            <div className="prompt-container">
             <input className="prompt-box" value={input} onChange={onChange}/>
