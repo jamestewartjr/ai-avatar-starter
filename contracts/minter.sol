@@ -16,9 +16,11 @@ contract Minter is ERC721URIStorage {
 
   string baseSvg = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='black' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
 
-  string[] firstWords = ["firtWord", "firtWord", "firtWord", "firtWord", "firtWord", "firtWord"];
-  string[] secondWords = ["wordDos", "wordDos", "wordDos", "wordDos", "wordDos", "wordDos"];
-  string[] thirdWords = ["lastWord", "lastWord", "lastWord", "lastWord", "lastWord", "lastWord"];
+  string[] firstWords = ["firstWord", "word1", "wordOne", "1word", "wordUno", "primaryWord"];
+  string[] secondWords = ["wordDos", "wordTwo", "word2", "secondWord", "secondaryWord", "2words"];
+  string[] thirdWords = ["wordTres", "word3", "word3", "tertiaryWord", "3words", "lastWord"];
+
+  event NewEpicNFTMinted(address sender, uint256 tokenId);
 
   constructor() ERC721 ("SquareNFT", "SQUARE") {
     console.log("This is my NFT contract. Woah!");
@@ -53,7 +55,7 @@ contract Minter is ERC721URIStorage {
     string memory second = pickRandomSecondWord(newItemId);
     string memory third = pickRandomThirdWord(newItemId);
     string memory combinedWord = string(abi.encodePacked(first, second, third));
-
+        
     string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, "</text></svg>"));
 
     // Get all the JSON metadata in place and base64 encode it.
@@ -89,5 +91,8 @@ contract Minter is ERC721URIStorage {
   
     _tokenIds.increment();
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
+    emit NewEpicNFTMinted(msg.sender, newItemId);
+
+
   }
 }
